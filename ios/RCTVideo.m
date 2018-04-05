@@ -545,7 +545,12 @@ static NSString *const timedMetadata = @"timedMetadata";
     //    } else if([_ignoreSilentSwitch isEqualToString:@"obey"]) {
     //      [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
     //    }
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    if (_muted) {
+      // This is a workout
+      [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
+    } else {
+      [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    }
     //    [_player setVolume:1.0];
     [_player play];
     [_player setRate:_rate];
