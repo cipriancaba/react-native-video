@@ -57,6 +57,7 @@ static NSString *const timedMetadata = @"timedMetadata";
     _playbackRateObserverRegistered = NO;
     _playbackStalled = NO;
     _rate = 1.0;
+    _muted = true;
     _volume = 1.0;
     _resizeMode = @"AVLayerVideoGravityResizeAspectFill";
     _pendingSeek = false;
@@ -534,7 +535,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)setPaused:(BOOL)paused
 {
-  NSLog(@"VideoPlayer - setPaused %d", paused);
+  NSLog(@"VideoPlayer - setPaused %d muted - %d", paused, _muted);
   if (paused) {
     // Reset paused before seek if pending seek
     [_player pause];
@@ -547,8 +548,10 @@ static NSString *const timedMetadata = @"timedMetadata";
     //    }
     if (_muted) {
       // This is a workout
+      NSLog(@"VideoPlayer - muted %d - set ambient", _muted);
       [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
     } else {
+            NSLog(@"VideoPlayer - muted %d - set play and record", _muted);
       [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     }
     //    [_player setVolume:1.0];
@@ -623,6 +626,7 @@ static NSString *const timedMetadata = @"timedMetadata";
 
 - (void)setMuted:(BOOL)muted
 {
+  NSLog(@"VideoPlayer - setMuted %d", muted);
   _muted = muted;
   [self applyModifiers];
 }
