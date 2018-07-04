@@ -548,8 +548,8 @@ static NSString *const timedMetadata = @"timedMetadata";
     //    }
     if (_muted) {
       // This is a workout
-      NSLog(@"VideoPlayer - muted %d - set ambient", _muted);
-      [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
+//       NSLog(@"VideoPlayer - muted %d - set ambient", _muted);
+//       [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
     } else {
             NSLog(@"VideoPlayer - muted %d - set play and record", _muted);
       [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
